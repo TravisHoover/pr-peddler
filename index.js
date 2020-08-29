@@ -11,6 +11,13 @@ module.exports = app => {
     return context.github.issues.createComment(issueComment)
   })
 
+  app.on('pull_request.opened', async context => {
+    const pr = context.payload.pull_request
+    const user = pr.user.login // Collecting Details of the person who created the PR
+    const msg = context.issue({ body: ` Hey @${user} 👋, Thanks for the PR !!! You are Awesome.` })
+    return context.github.issues.createComment(msg)
+  })
+
   // For more information on building apps:
   // https://probot.github.io/docs/
 
