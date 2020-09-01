@@ -21,8 +21,8 @@ function sendSlackMessage (pr) {
           short: true
         },
         {
-          title: 'Author',
-          value: `${pr.user.login}`,
+          title: 'PR Title',
+          value: `${pr.title}`,
           short: true
         },
         {
