@@ -10,19 +10,19 @@ function sendSlackMessage (pr) {
   const messageBody = {
     username: pr.user.login, // This will appear as user name who posts the message
     text: `Can I get :eyes: on ${pr.html_url}`,
-    icon_emoji: ':eyes:', // User icon, you can also use custom icons here
+    icon_url: pr.user.avatar_url,
     attachments: [{
       fallback: 'test',
       color: '#eed140',
       fields: [
         {
-          title: 'Repo',
-          value: `${pr.head.repo.name}`,
+          title: 'PR Title',
+          value: `${pr.title}`,
           short: true
         },
         {
-          title: 'PR Title',
-          value: `${pr.title}`,
+          title: 'Repo',
+          value: `${pr.head.repo.name}`,
           short: true
         },
         {
