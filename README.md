@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/TravisHoover/pr-peddler.svg?branch=master)](https://travis-ci.org/TravisHoover/pr-peddler)
 # pr-peddler
 
 > A GitHub App built with [Probot](https://github.com/probot/probot) to provide metadata about pull requests.
