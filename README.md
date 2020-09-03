@@ -1,9 +1,8 @@
 # pr-peddler
 
-> A GitHub App built with [Probot](https://github.com/probot/probot) that A GitHub app to provide metadata about pull requests.
+> A GitHub App built with [Probot](https://github.com/probot/probot) to provide metadata about pull requests.
 
 ## Setup
-
 ```sh
 # Install dependencies
 npm install
@@ -11,6 +10,12 @@ npm install
 # Run the bot
 npm start
 ```
+
+## Deployment
+Add a webhook for a Slack channel using [these instructions](https://api.slack.com/messaging/webhooks#:~:text=2.,toggle%20to%20switch%20it%20on.)
+<br> Grab the rest of the needed environment variables from the GitHub App created by Probot
+<br> The app may be deployed by any server that can run NodeJS, so Heroku would be fine.
+<br> I went with [Glitch](https://www.glitch.com) and the deployment steps may be found [here](https://probot.github.io/docs/deployment/#deploy-the-app)
 
 ## Contributing
 
