@@ -14,7 +14,9 @@ module.exports = app => {
   })
 
   app.on('pull_request.opened', async context => {
-    const pr = context.payload.pull_request
-    return slack.sendSlackMessage(pr)
+    const pr = context.payload.pull_request;
+    if (pr.user.login !== 'dependabot[bot]') { // TODO check for any bot
+      return slack.sendSlackMessage(pr);
+    }
   })
 }
