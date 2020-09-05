@@ -1,10 +1,15 @@
 const nock = require('nock')
-// Requiring our app implementation
 const myProbotApp = require('..')
 const { Probot } = require('probot')
-// Requiring our fixtures
 const payload = require('./fixtures/issues.opened')
-const issueCreatedBody = { body: 'Thanks for opening this issue!' }
+const issueComment = {
+  body: {
+    issue_number: 1,
+    owner: 'hiimbex',
+    repo: 'testing-things',
+    body: 'Thanks for opening this issue!'
+  }
+}
 const fs = require('fs')
 const path = require('path')
 
@@ -22,7 +27,7 @@ describe('My Probot app', () => {
 
   beforeEach(() => {
     nock.disableNetConnect()
-    probot = new Probot({ id: 123, cert: mockCert })
+    probot = new Probot({ id: 123, privateKey: mockCert })
     // Load our app into probot
     probot.load(myProbotApp)
   })
@@ -36,7 +41,7 @@ describe('My Probot app', () => {
     // Test that a comment is posted
     nock('https://api.github.com')
       .post('/repos/hiimbex/testing-things/issues/1/comments', (body) => {
-        expect(body).toMatchObject(issueCreatedBody)
+        expect(body).toMatchObject(issueComment)
         return true
       })
       .reply(200)
