@@ -1,0 +1,17 @@
+{
+  "action": "opened",
+  "pull_request": {
+    "number": 1,
+    "user": {
+      "login": "hiimbex"
+    },
+    "head": {
+      "repo": {
+        "name": "testing-things",
+        "owner": {
+          "login": "hiimbex"
+        }
+      }
+    }
+  }
+}

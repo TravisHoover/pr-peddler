@@ -1,7 +1,9 @@
+const { describe, afterEach, beforeAll, beforeEach, test } = require('@jest/globals')
 const nock = require('nock')
 const myProbotApp = require('..')
 const { Probot } = require('probot')
-const payload = require('./fixtures/issues.opened')
+const issuePayload = require('./fixtures/issues.opened')
+const pullRequestPayload = require('./fixtures/pull_request.opened')
 const issueComment = {
   body: {
     issue_number: 1,
@@ -47,7 +49,19 @@ describe('My Probot app', () => {
       .reply(200)
 
     // Receive a webhook event
-    await probot.receive({ name: 'issues', payload })
+    await probot.receive({ name: 'issues', payload: issuePayload })
+  })
+
+  test('sends a Slack message when a pull request is opened', async () => {
+    // Test that we correctly return a test token
+    const webhookURL = process.env.SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
+    nock('https://hooks.slack.com')
+      .persist()
+      .post(webhookURL)
+      .reply(200, { token: 'test' })
+
+    // Receive a webhook event
+    await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
   })
 
   afterEach(() => {
