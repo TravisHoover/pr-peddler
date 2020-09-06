@@ -48,6 +48,8 @@
     ]
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "coverageDirectory": "./coverage/",
+    "collectCoverage": true
   }
 }
