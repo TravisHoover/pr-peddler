@@ -5,6 +5,7 @@
     "user": {
       "login": "hiimbex"
     },
+    "body" : "Lorem ipsum",
     "head": {
       "repo": {
         "name": "testing-things",

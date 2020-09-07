@@ -7,6 +7,7 @@ const webhookURL = process.env.SLACK_WEBHOOK
  * @returns {Promise<unknown>}
  */
 function sendSlackMessage (pr) {
+  const description = pr.body.length > 250 ? `${pr.body.substring(0, 250)}...` : pr.body
   const messageBody = {
     username: pr.user.login, // This will appear as user name who posts the message
     text: `Can I get :eyes: on ${pr.html_url}`,
@@ -15,6 +16,11 @@ function sendSlackMessage (pr) {
       fallback: 'test',
       color: '#eed140',
       fields: [
+        {
+          title: 'Description',
+          value: description,
+          short: false
+        },
         {
           title: 'PR Title',
           value: `${pr.title}`,
