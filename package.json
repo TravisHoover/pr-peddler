@@ -25,7 +25,7 @@
     "probot": "^10.2.0"
   },
   "devDependencies": {
-    "@jest/globals": "^26.4.2",
+    "@jest/globals": "^26.5.2",
     "jest": "^26.4.2",
     "nock": "^13.0.4",
     "nodemon": "^2.0.4",
