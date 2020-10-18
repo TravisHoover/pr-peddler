@@ -1,0 +1,17 @@
+service: pr-peddler
+app: pr-peddler
+org: travishoover
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  pr-peddler:
+    handler: handler.probot
+    events:
+      - http:
+          path: /
+          method: post

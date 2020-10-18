@@ -1,9 +1,8 @@
 const { describe, afterEach, beforeAll, beforeEach, test } = require('@jest/globals')
 const nock = require('nock')
-const myProbotApp = require('..')
+const myProbotApp = require('../index')
 const { Probot } = require('probot')
 const issuePayload = require('./fixtures/issues.opened')
-const pullRequestPayload = require('./fixtures/pull_request.opened')
 const issueComment = {
   body: {
     issue_number: 1,
@@ -31,7 +30,7 @@ describe('My Probot app', () => {
     nock.disableNetConnect()
     probot = new Probot({ id: 123, privateKey: mockCert })
     // Load our app into probot
-    probot.load(myProbotApp)
+    probot.load(myProbotApp.peddler)
   })
 
   test('creates a comment when an issue is opened', async () => {
@@ -50,21 +49,6 @@ describe('My Probot app', () => {
 
     // Receive a webhook event
     await probot.receive({ name: 'issues', payload: issuePayload })
-  })
-
-  test('sends a Slack message when a pull request is opened', async () => {
-    // Test that we correctly return a test token
-    const webhookURL = process.env.SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
-    nock('https://hooks.slack.com')
-      .persist()
-      .post(webhookURL, (reply) => {
-        expect(reply.text).toContain('Can I get :eyes: on ')
-        return true
-      })
-      .reply(200, { token: 'test' })
-
-    // Receive a webhook event
-    await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
   })
 
   afterEach(() => {
