@@ -1,7 +1,7 @@
 {
   "name": "pr-peddler",
-  "version": "1.0.0",
-  "private": true,
+  "version": "2.0.0",
+  "private": false,
   "description": "A GitHub app to provide metadata about pull requests.",
   "author": "Travis Hoover <traviskhoover@gmail.com>",
   "license": "ISC",
