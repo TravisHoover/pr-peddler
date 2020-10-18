@@ -16,9 +16,12 @@
   "scripts": {
     "dev": "nodemon",
     "start": "probot run ./index.js",
-    "lint": "standard --fix",
-    "test": "jest && standard",
-    "test:watch": "jest --watch --notify --notifyMode=change --coverage"
+    "test": "jest",
+    "coverage": "jest --coverage",
+    "deploy": "serverless deploy -v",
+    "invoke": "serverless invoke -l -f ${FUNCTION:-pr-peddler}",
+    "invoke-local-function": "serverless invoke local -f ${FUNCTION:-pr-peddler} -l -e PGHOST=localhost",
+    "logs": "serverless logs -f ${FUNCTION:-pr-peddler} -t"
   },
   "dependencies": {
     "@octokit/rest": "^18.0.5",
@@ -30,6 +33,7 @@
     "jest": "^26.4.2",
     "nock": "^13.0.4",
     "nodemon": "^2.0.4",
+    "serverless": "^2.8.0",
     "smee-client": "^1.2.2",
     "standard": "^14.3.4"
   },
