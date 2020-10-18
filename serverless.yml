@@ -1,6 +1,6 @@
 service: pr-peddler
 app: pr-peddler
-org: travishoover
+org: fortress
 
 frameworkVersion: '2'
 
