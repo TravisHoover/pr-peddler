@@ -11,3 +11,7 @@ provider:
 functions:
   pr-peddler:
     handler: handler.probot
+    events:
+      - http:
+          path: /
+          method: post
