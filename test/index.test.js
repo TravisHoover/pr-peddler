@@ -57,7 +57,10 @@ describe('My Probot app', () => {
     const webhookURL = process.env.SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
       .persist()
-      .post(webhookURL)
+      .post(webhookURL, (reply) => {
+        expect(reply.text).toContain('Can I get :eyes: on ')
+        return true
+      })
       .reply(200, { token: 'test' })
 
     // Receive a webhook event
