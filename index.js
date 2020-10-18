@@ -1,10 +1,10 @@
-module.exports = app => {
-  const slack = require('./slack')
-  const { Octokit } = require('@octokit/rest')
-  const octokit = new Octokit()
+const peddler = (app) => {
+  const slack = require('./slack');
+  const { Octokit } = require('@octokit/rest');
+  const octokit = new Octokit();
 
   app.on('issues.opened', async context => {
-    const issueComment = context.issue({ body: 'Thanks for opening this issue!' })
+    const issueComment = context.issue({ body: 'Thanks for opening this issue!' });
     return octokit.issues.createComment({
       owner: context.payload.repository.owner.login,
       repo: context.payload.repository.name,
@@ -14,9 +14,11 @@ module.exports = app => {
   })
 
   app.on('pull_request.opened', async context => {
-    const pr = context.payload.pull_request
+    const pr = context.payload.pull_request;
     if (!pr.user.login.includes('[bot]')) {
-      return slack.sendSlackMessage(pr)
+      return slack.sendSlackMessage(pr);
     }
-  })
+  });
 }
+
+exports.peddler = peddler;
