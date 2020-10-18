@@ -14,14 +14,16 @@
     "probot-app"
   ],
   "scripts": {
-    "dev": "nodemon",
-    "start": "probot run ./index.js",
-    "test": "jest",
     "coverage": "jest --coverage",
     "deploy": "serverless deploy -v",
+    "dev": "nodemon",
     "invoke": "serverless invoke -l -f ${FUNCTION:-pr-peddler}",
     "invoke-local-function": "serverless invoke local -f ${FUNCTION:-pr-peddler} -l -p ./test/fixtures/pull_request.opened.json",
-    "logs": "serverless logs -f ${FUNCTION:-pr-peddler} -t"
+    "lint": "standard --fix",
+    "logs": "serverless logs -f ${FUNCTION:-pr-peddler} -t",
+    "start": "probot run ./index.js",
+    "test": "jest && standard",
+    "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
     "@octokit/rest": "^18.0.5",
