@@ -96,7 +96,7 @@ const peddler = (app) => {
     }
   })
 
-  app.on('ready_for_review', async context => {
+  app.on('pull_request.ready_for_review', async context => {
     const pr = context.payload.pull_request
     const messageBody = {
       username: pr.user.login, // This will appear as user name who posts the message
