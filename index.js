@@ -1,9 +1,18 @@
 const https = require('https')
 const webhookURL = process.env.SLACK_WEBHOOK
 const { Octokit } = require('@octokit/rest')
+const { createAppAuth } = require("@octokit/auth-app");
 
-const peddler = (app) => {
-  const octokit = new Octokit()
+const peddler = async (app) => {
+  console.log('starting app');
+  const octokit = new Octokit({
+    authStrategy: createAppAuth,
+    auth: {
+      appId: process.env.APP_ID,
+      privateKey: `"${process.env.PRIVATE_KEY}"`,
+      installationId: 11578959,
+    }
+  })
 
   app.on('issues.opened', async context => {
     const issueComment = context.issue({ body: 'Thanks for opening this issue!' })
@@ -17,6 +26,16 @@ const peddler = (app) => {
 
   app.on('pull_request.opened', async context => {
     const pr = context.payload.pull_request
+    console.info(pr.title.substring(0, 6));
+    if (pr.title.substring(0, 6) === 'Revert') {
+      return octokit.pulls.merge({
+        owner: context.payload.repository.owner.login,
+        repo: context.payload.repository.name,
+        pull_number: pr.number,
+      }, function(err, res) {
+        console.info(err, res);
+      })
+    }
     if (!pr.user.login.includes('[bot]') && !pr.draft) {
       const messageBody = {
         username: pr.user.login, // This will appear as user name who posts the message

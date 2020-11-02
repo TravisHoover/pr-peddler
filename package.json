@@ -15,9 +15,9 @@
   ],
   "scripts": {
     "coverage": "jest --coverage",
-    "deploy": "serverless deploy -v",
+    "deploy": "serverless deploy -v -s production",
     "dev": "nodemon",
-    "invoke": "serverless invoke -l -f ${FUNCTION:-pr-peddler}",
+    "invoke": "serverless invoke -l -f ${FUNCTION:-pr-peddler} -s production",
     "invoke-local-function": "serverless invoke local -f ${FUNCTION:-pr-peddler} -l -p ./test/fixtures/pull_request.opened.json",
     "lint": "standard --fix",
     "logs": "serverless logs -f ${FUNCTION:-pr-peddler} -t",
@@ -26,6 +26,7 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
+    "@octokit/auth-app": "^2.10.1",
     "@octokit/rest": "^18.0.6",
     "@probot/serverless-lambda": "^0.5.3",
     "probot": "^10.2.0",
