@@ -29,7 +29,7 @@
     "@octokit/rest": "^18.0.9",
     "@probot/serverless-lambda": "^1.0.0",
     "probot": "^10.2.0",
-    "serverless": "^2.11.1",
+    "serverless": "^2.14.0",
     "smee-client": "^1.2.2"
   },
   "devDependencies": {
