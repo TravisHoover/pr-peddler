@@ -3,6 +3,7 @@ const nock = require('nock')
 const myProbotApp = require('../index')
 const { Probot } = require('probot')
 const issuePayload = require('./fixtures/issues.opened')
+const pullRequestPayload = require('./fixtures/pull_request.opened')
 const issueComment = {
   body: {
     issue_number: 1,
@@ -14,7 +15,7 @@ const issueComment = {
 const fs = require('fs')
 const path = require('path')
 
-describe('My Probot app', () => {
+describe('pr-peddler', () => {
   let probot
   let mockCert
 
@@ -49,6 +50,18 @@ describe('My Probot app', () => {
 
     // Receive a webhook event
     await probot.receive({ name: 'issues', payload: issuePayload })
+  })
+
+  test('sends a Slack message when a pull request is opened', async () => {
+    // Test that we correctly return a test token
+    const SLACK_WEBHOOK = 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
+    nock('https://hooks.slack.com')
+      .post(webhookURL)
+      .reply(200)
+
+    // Receive a webhook event
+    await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
   })
 
   afterEach(() => {
