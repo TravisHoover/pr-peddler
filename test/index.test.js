@@ -38,14 +38,12 @@ describe('pr-peddler', () => {
     // Test that we correctly return a test token
     nock('https://api.github.com')
       .persist()
-      .log(console.log)
       .post('/app/installations/2/access_tokens')
       .reply(200, { token: 'test' })
 
     // Test that a comment is posted
     nock('https://api.github.com')
       .persist()
-      .log(console.log)
       .post('/repos/hiimbex/testing-things/issues/1/comments', (body) => {
         expect(body).toMatchObject(issueComment)
         return true
@@ -62,7 +60,6 @@ describe('pr-peddler', () => {
     const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
       .persist()
-      .log(console.log)
       .post(webhookURL)
       .reply(200)
 
