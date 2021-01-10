@@ -37,11 +37,13 @@ describe('pr-peddler', () => {
   test('creates a comment when an issue is opened', async () => {
     // Test that we correctly return a test token
     nock('https://api.github.com')
+      .persist()
       .post('/app/installations/2/access_tokens')
       .reply(200, { token: 'test' })
 
     // Test that a comment is posted
     nock('https://api.github.com')
+      .persist()
       .post('/repos/hiimbex/testing-things/issues/1/comments', (body) => {
         expect(body).toMatchObject(issueComment)
         return true
@@ -57,6 +59,7 @@ describe('pr-peddler', () => {
     const SLACK_WEBHOOK = 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
     const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
+      .persist()
       .post(webhookURL)
       .reply(200)
 
