@@ -66,10 +66,6 @@ describe('pr-peddler', () => {
     // Receive a webhook event
     await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
   })
-
-  afterEach(() => {
-    nock.enableNetConnect()
-  })
 })
 
 // For more information about testing with Jest see:
