@@ -56,9 +56,11 @@ describe('pr-peddler', () => {
 
   test('sends a Slack message when a pull request is opened', async () => {
     // Test that we correctly return a test token
+    const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
       .persist()
-      .post('/services/TEST/CHANNEL/TOKEN')
+      .post(webhookURL)
       .reply(200)
 
     // Receive a webhook event
