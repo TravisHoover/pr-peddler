@@ -1,4 +1,4 @@
-const { describe, afterEach, beforeAll, beforeEach, test } = require('@jest/globals')
+const { describe, beforeAll, beforeEach, test } = require('@jest/globals')
 const nock = require('nock')
 const myProbotApp = require('../index')
 const { Probot } = require('probot')
@@ -56,11 +56,9 @@ describe('pr-peddler', () => {
 
   test('sends a Slack message when a pull request is opened', async () => {
     // Test that we correctly return a test token
-    const SLACK_WEBHOOK = 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
-    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
       .persist()
-      .post(webhookURL)
+      .post('/services/TEST/CHANNEL/TOKEN')
       .reply(200)
 
     // Receive a webhook event
