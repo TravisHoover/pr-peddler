@@ -68,7 +68,6 @@ describe('pr-peddler', () => {
   })
 
   afterEach(() => {
-    nock.cleanAll()
     nock.enableNetConnect()
   })
 })
