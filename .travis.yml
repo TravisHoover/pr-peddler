@@ -5,5 +5,5 @@ install:
   - npm install -g codecov
 script:
   - npm install
-  - jest --coverage
+  - DEBUG=nock.* jest --coverage
   - codecov
