@@ -5,6 +5,7 @@
     "user": {
       "login": "hiimbex"
     },
+    "title": "Pull Request title",
     "body" : "Lorem ipsum",
     "head": {
       "repo": {
