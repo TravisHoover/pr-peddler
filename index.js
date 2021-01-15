@@ -7,10 +7,17 @@ const peddler = (app) => {
 
   const sendMessage = async (context) => {
     const pr = context.payload.pull_request
+    const prTitle = pr.title
+    let text = ''
+    if (prTitle.includes('Revert')) {
+      text = `:revertit_parrot: ${pr.html_url} :revertit_parrot:`
+    } else {
+      text = `Can I get :eyes: on ${pr.html_url}`
+    }
     if (!pr.user.login.includes('[bot]') && !pr.draft) {
       const messageBody = {
         username: pr.user.login, // This will appear as user name who posts the message
-        text: `Can I get :eyes: on ${pr.html_url}`,
+        text,
         icon_url: pr.user.avatar_url,
         attachments: [{
           fallback: 'test',
@@ -18,7 +25,7 @@ const peddler = (app) => {
           fields: [
             {
               title: 'PR Title',
-              value: `${pr.title}`,
+              value: `${prTitle}`,
               short: true
             },
             {
