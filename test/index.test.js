@@ -4,6 +4,8 @@ const myProbotApp = require('../index')
 const { Probot } = require('probot')
 const issuePayload = require('./fixtures/issues.opened')
 const pullRequestPayload = require('./fixtures/pull_request.opened')
+const revertPayload = require('./fixtures/revert_pr_opened.json')
+const { GiphyFetch } = require('@giphy/js-fetch-api')
 const issueComment = {
   body: {
     issue_number: 1,
@@ -14,6 +16,8 @@ const issueComment = {
 }
 const fs = require('fs')
 const path = require('path')
+
+jest.mock('@giphy/js-fetch-api')
 
 describe('pr-peddler', () => {
   let probot
@@ -65,6 +69,40 @@ describe('pr-peddler', () => {
 
     // Receive a webhook event
     await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
+  })
+
+  test('adds gif to slack message', async () => {
+    const searchSpy = jest.spyOn(GiphyFetch.prototype, 'search')
+    searchSpy.mockImplementation(() => ({
+      data: [{
+        url: 'test'
+      }]
+    }))
+
+    // Test that we correctly return a test token
+    const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+    process.env.GIPHY_KEY = 'test_key'
+    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
+    nock('https://hooks.slack.com')
+      .persist()
+      .post(webhookURL)
+      .reply(200)
+
+    // Receive a webhook event
+    await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
+  })
+
+  test('sends a Slack message when a pull request is opened for a revert', async () => {
+    // Test that we correctly return a test token
+    const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
+    nock('https://hooks.slack.com')
+      .persist()
+      .post(webhookURL)
+      .reply(200)
+
+    // Receive a webhook event
+    await probot.receive({ name: 'pull_request', payload: revertPayload })
   })
 })
 

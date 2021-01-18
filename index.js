@@ -11,7 +11,7 @@ const peddler = (app) => {
   const sendMessage = async (context) => {
     const pr = context.payload.pull_request
     const prTitle = pr.title
-    let text = ''
+    let text
     let gif = ''
     if (process.env.GIPHY_KEY) {
       const { data: gifs } = await gf.search(`${prTitle}`, { sort: 'relevant', limit: 1 })
