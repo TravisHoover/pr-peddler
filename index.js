@@ -1,7 +1,7 @@
-import { GiphyFetch } from '@giphy/js-fetch-api'
 const https = require('https')
-const webhookURL = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+const { GiphyFetch } = require('@giphy/js-fetch-api')
 const { Octokit } = require('@octokit/rest')
+const webhookURL = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
 
 const gf = new GiphyFetch(process.env.GIPHY_KEY || 'GIPHY_SDK_API_KEY')
 
