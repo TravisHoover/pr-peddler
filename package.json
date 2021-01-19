@@ -31,8 +31,8 @@
     "@probot/serverless-lambda": "^1.0.2",
     "ajv": "^7.0.3",
     "isomorphic-fetch": "^3.0.0",
-    "probot": "^11.0.1",
-    "serverless": "^2.18.0",
+    "probot": "^11.0.4",
+    "serverless": "^2.19.0",
     "smee-client": "^1.2.2"
   },
   "devDependencies": {
