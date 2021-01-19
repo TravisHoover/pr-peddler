@@ -1,6 +1,10 @@
+require('isomorphic-fetch')
 const https = require('https')
-const webhookURL = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+const { GiphyFetch } = require('@giphy/js-fetch-api')
 const { Octokit } = require('@octokit/rest')
+const webhookURL = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+
+const gf = new GiphyFetch(process.env.GIPHY_KEY || 'GIPHY_SDK_API_KEY')
 
 const peddler = (app) => {
   const octokit = new Octokit()
@@ -8,11 +12,17 @@ const peddler = (app) => {
   const sendMessage = async (context) => {
     const pr = context.payload.pull_request
     const prTitle = pr.title
-    let text = ''
+    let text
+    let gif = ''
+    if (process.env.GIPHY_KEY) {
+      const { data: gifs } = await gf.search(`${prTitle}`, { sort: 'relevant', limit: 1 })
+      gif = gifs[0].url || ''
+    }
     if (prTitle.includes('Revert')) {
       text = `:revertit_parrot: ${pr.html_url} :revertit_parrot:`
     } else {
-      text = `Can I get :eyes: on ${pr.html_url}`
+      text = `Can I get :eyes: on ${pr.html_url}
+      ${gif}`
     }
     if (!pr.user.login.includes('[bot]') && !pr.draft) {
       const messageBody = {

@@ -1,0 +1,19 @@
+{
+  "action": "opened",
+  "pull_request": {
+    "number": 1,
+    "user": {
+      "login": "hiimbex"
+    },
+    "title": "Revert title",
+    "body" : "Lorem ipsum",
+    "head": {
+      "repo": {
+        "name": "testing-things",
+        "owner": {
+          "login": "hiimbex"
+        }
+      }
+    }
+  }
+}
