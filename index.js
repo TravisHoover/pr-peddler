@@ -1,3 +1,4 @@
+require('isomorphic-fetch')
 const https = require('https')
 const { GiphyFetch } = require('@giphy/js-fetch-api')
 const { Octokit } = require('@octokit/rest')
