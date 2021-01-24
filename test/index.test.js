@@ -17,6 +17,9 @@ const issueComment = {
 const fs = require('fs')
 const path = require('path')
 
+const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
+const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
+
 jest.mock('@giphy/js-fetch-api')
 
 describe('pr-peddler', () => {
@@ -34,18 +37,15 @@ describe('pr-peddler', () => {
   beforeEach(() => {
     nock.disableNetConnect()
     probot = new Probot({ id: 123, privateKey: mockCert })
-    // Load our app into probot
     probot.load(myProbotApp.peddler)
   })
 
   test('creates a comment when an issue is opened', async () => {
-    // Test that we correctly return a test token
     nock('https://api.github.com')
       .persist()
       .post('/app/installations/2/access_tokens')
       .reply(200, { token: 'test' })
 
-    // Test that a comment is posted
     nock('https://api.github.com')
       .persist()
       .post('/repos/hiimbex/testing-things/issues/1/comments', (body) => {
@@ -54,20 +54,15 @@ describe('pr-peddler', () => {
       })
       .reply(200)
 
-    // Receive a webhook event
     await probot.receive({ name: 'issues', payload: issuePayload })
   })
 
   test('sends a Slack message when a pull request is opened', async () => {
-    // Test that we correctly return a test token
-    const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
-    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
       .persist()
       .post(webhookURL)
       .reply(200)
 
-    // Receive a webhook event
     await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
   })
 
@@ -79,35 +74,31 @@ describe('pr-peddler', () => {
       }]
     }))
 
-    // Test that we correctly return a test token
-    const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
     process.env.GIPHY_KEY = 'test_key'
-    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
       .persist()
       .post(webhookURL)
       .reply(200)
 
-    // Receive a webhook event
     await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
   })
 
   test('sends a Slack message when a pull request is opened for a revert', async () => {
-    // Test that we correctly return a test token
-    const SLACK_WEBHOOK = process.env.SLACK_WEBHOOK || 'https://hooks.slack.com/services/TEST/CHANNEL/TOKEN'
-    const webhookURL = SLACK_WEBHOOK.replace('https://hooks.slack.com', '')
     nock('https://hooks.slack.com')
       .persist()
       .post(webhookURL)
       .reply(200)
 
-    // Receive a webhook event
     await probot.receive({ name: 'pull_request', payload: revertPayload })
   })
+
+  test('handles http error', async () => {
+    nock('https://hooks.slack.com')
+      .persist()
+      .post(webhookURL)
+      .replyWithError('test error')
+
+    const response = await probot.receive({ name: 'pull_request', payload: pullRequestPayload })
+    expect(response).toBe(undefined)
+  })
 })
-
-// For more information about testing with Jest see:
-// https://facebook.github.io/jest/
-
-// For more information about testing with Nock see:
-// https://github.com/nock/nock
