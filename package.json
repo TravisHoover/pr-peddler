@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@giphy/js-fetch-api": "^2.0.1",
-    "@octokit/rest": "^18.0.12",
+    "@octokit/rest": "^18.1.1",
     "@probot/serverless-lambda": "^1.0.2",
     "ajv": "^7.0.3",
     "isomorphic-fetch": "^3.0.0",
