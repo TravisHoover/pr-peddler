@@ -12,8 +12,12 @@
         "name": "testing-things",
         "owner": {
           "login": "hiimbex"
-        }
+        },
+        "default_branch": "master"
       }
+    },
+    "base": {
+      "ref": "master"
     }
   }
 }
