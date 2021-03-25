@@ -11,6 +11,8 @@ const peddler = (app) => {
 
   const sendMessage = async (context) => {
     const pr = context.payload.pull_request
+    const defaultBranch = pr.head.repo.default_branch || null
+    const baseBranch = pr.base.ref || null
     const prTitle = pr.title
     let text
     let gif = ''
@@ -24,7 +26,7 @@ const peddler = (app) => {
       text = `Can I get :eyes: on ${pr.html_url}
       ${gif}`
     }
-    if (!pr.user.login.includes('[bot]') && !pr.draft) {
+    if (!pr.user.login.includes('[bot]') && !pr.draft && baseBranch === defaultBranch) {
       const messageBody = {
         username: pr.user.login, // This will appear as user name who posts the message
         text,
