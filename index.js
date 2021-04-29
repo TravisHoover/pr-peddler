@@ -17,7 +17,7 @@ const peddler = (app) => {
     let text
     let gif = ''
     if (process.env.GIPHY_KEY) {
-      const { data: gifs } = await gf.search(`${prTitle}`, { sort: 'relevant', limit: 1, rating: 'pg-13' })
+      const { data: gifs } = await gf.search(`${prTitle.substring(0, 49)}`, { sort: 'relevant', limit: 1, rating: 'pg-13' })
       gif = gifs[0].url || ''
     }
     if (prTitle.includes('Revert')) {
