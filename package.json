@@ -29,7 +29,7 @@
     "@giphy/js-fetch-api": "^3.0.0",
     "@octokit/rest": "^18.0.12",
     "@probot/serverless-lambda": "^1.0.2",
-    "ajv": "^7.0.3",
+    "ajv": "^8.4.0",
     "isomorphic-fetch": "^3.0.0",
     "probot": "^11.0.4",
     "serverless": "^2.40.0",
