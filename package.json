@@ -26,7 +26,7 @@
     "test:watch": "jest --watch --notify --notifyMode=change --coverage"
   },
   "dependencies": {
-    "@giphy/js-fetch-api": "^4.0.2",
+    "@giphy/js-fetch-api": "^4.0.3",
     "@octokit/rest": "^18.6.7",
     "@probot/serverless-lambda": "^1.0.2",
     "ajv": "^8.6.1",
