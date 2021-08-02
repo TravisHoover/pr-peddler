@@ -19,7 +19,7 @@ const peddler = (app) => {
     if (process.env.GIPHY_KEY) {
       const bannedWords = ['cert', 'remove']
       const gifLookup = prTitle.split(' ').filter((word) => !bannedWords.includes(word)).join(' ')
-      const { data: gifs } = await gf.search(`${gifLookup.substring(0, 49)}`, { sort: 'relevant', limit: 1, rating: 'pg-13' })
+      const { data: gifs } = await gf.search(`${gifLookup.substring(0, 49)}`, { sort: 'relevant', limit: 1, rating: 'pg' })
       gif = gifs[0].url || ''
     }
     if (prTitle.includes('Revert')) {
