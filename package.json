@@ -32,7 +32,7 @@
     "ajv": "^8.6.2",
     "isomorphic-fetch": "^3.0.0",
     "probot": "^11.0.4",
-    "serverless": "^2.53.0",
+    "serverless": "^2.57.0",
     "smee-client": "^1.2.2"
   },
   "devDependencies": {
