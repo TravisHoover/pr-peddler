@@ -33,7 +33,7 @@
     "isomorphic-fetch": "^3.0.0",
     "probot": "^11.0.4",
     "serverless": "^2.64.1",
-    "smee-client": "^1.2.2"
+    "smee-client": "^1.2.3"
   },
   "devDependencies": {
     "@jest/globals": "^27.0.6",
