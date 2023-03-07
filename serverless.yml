@@ -2,11 +2,11 @@ service: pr-peddler
 app: pr-peddler
 org: fortress
 
-frameworkVersion: '2'
+frameworkVersion: '3'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs18.x
   deploymentBucket:
     name: ${ssm:serverless-deployment-bucket}
     versioning: true
