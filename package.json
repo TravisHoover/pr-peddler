@@ -42,7 +42,7 @@
     "nock": "^13.1.1",
     "nodemon": "^2.0.12",
     "serverless-deployment-bucket": "^1.6.0",
-    "standard": "^16.0.3"
+    "standard": "^17.0.0"
   },
   "engines": {
     "node": "16.x"
