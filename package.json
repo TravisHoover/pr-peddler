@@ -16,6 +16,7 @@
   "scripts": {
     "coverage": "jest --coverage",
     "deploy": "serverless deploy -v -s production",
+    "deploy-dev": "serverless deploy -v -s dev",
     "dev": "nodemon",
     "invoke": "serverless invoke -l -f ${FUNCTION:-pr-peddler}",
     "invoke-local-function": "serverless invoke local -f ${FUNCTION:-pr-peddler} -l -p ./test/fixtures/pull_request.opened.json",
