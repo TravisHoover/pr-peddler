@@ -2,7 +2,7 @@ service: pr-peddler
 app: pr-peddler
 org: fortress
 
-frameworkVersion: '3'
+frameworkVersion: '2'
 
 provider:
   name: aws
