@@ -6,7 +6,11 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: nodejs12.x
+  runtime: nodejs18.x
+  deploymentBucket:
+    name: ${ssm:serverless-deployment-bucket}
+    versioning: true
+    blockPublicAccess: true
 
 functions:
   pr-peddler:
@@ -15,3 +19,6 @@ functions:
       - http:
           path: /
           method: post
+
+plugins:
+  - serverless-deployment-bucket
