@@ -20,5 +20,9 @@ functions:
           path: /
           method: post
 
+custom:
+  deploymentBucket:
+    blockPublicAccess: true
+
 plugins:
   - serverless-deployment-bucket
